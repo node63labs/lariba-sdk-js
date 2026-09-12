@@ -1,38 +1,50 @@
-# Lariba JavaScript SDK
+# Lariba Cloud JavaScript SDK
 
-Official JavaScript SDK for sending events to **Lariba Cloud**.
+Official JavaScript/TypeScript SDK for integrating applications with **Lariba Cloud**.
 
-This SDK allows applications to easily send events to the Lariba Cloud event ingestion API.
+The current public SDK surface focuses on **event ingestion**. It provides a small client for sending application events to the Lariba Cloud API without exposing Lariba Cloud's private production implementation.
 
----
+## Installation
 
-# Installation
-
-The SDK is currently installed directly from GitHub.
+The SDK is currently installed directly from GitHub:
 
 ```bash
 npm install github:node63labs/lariba-sdk-js
 ```
 
----
+The current package name is `lariba-sdk`.
 
-# Usage
+## Usage
 
 ```javascript
-import { Lariba } from "@laribacloud/lariba-sdk-js"
+import { Lariba } from "lariba-sdk"
 
-const lariba = new Lariba({
-  apiKey: process.env.LARIBA_API_KEY
-})
+const apiKey = process.env.LARIBA_API_KEY
+const baseUrl = process.env.LARIBA_API_BASE_URL ?? "http://localhost:8000"
+
+if (!apiKey) {
+  throw new Error("LARIBA_API_KEY is required")
+}
+
+const lariba = new Lariba(apiKey, baseUrl)
 
 await lariba.track("user.signup", {
   plan: "starter"
 })
 ```
 
----
+## API
 
-# Example
+### `new Lariba(apiKey, baseUrl?)`
+
+Creates a Lariba Cloud client.
+
+- `apiKey` — Lariba Cloud API key.
+- `baseUrl` — optional API base URL. The current SDK defaults to `http://localhost:8000` for local development.
+
+### `lariba.track(eventName, properties?)`
+
+Sends an event to the Lariba Cloud event-ingestion API.
 
 ```javascript
 await lariba.track("payment.completed", {
@@ -41,50 +53,22 @@ await lariba.track("payment.completed", {
 })
 ```
 
----
+## Public developer resources
 
-# API
+- [Lariba Cloud API specification](https://github.com/node63labs/lariba-spec)
+- [Lariba Cloud developer documentation](https://github.com/node63labs/lariba-docs-site)
+- [NODE63 Labs](https://github.com/node63labs)
 
-### Track Event
+## Repository boundary
 
-```javascript
-lariba.track(eventName, properties)
-```
+This repository contains the public developer-facing SDK only. Lariba Cloud production applications, control-plane implementation, operational infrastructure, security-sensitive systems, and proprietary automation are maintained outside this public repository.
 
-Example:
+## Security
 
-```javascript
-lariba.track("user.login", {
-  method: "google"
-})
-```
+Do not report credentials, API keys, secrets, or suspected vulnerabilities in public issues. Follow the security-reporting guidance published by NODE63 Labs or the relevant Lariba Cloud developer resource.
 
----
+## License
 
-# Related Repositories
+Licensed under the [ISC License](./LICENSE).
 
-Lariba Cloud is composed of multiple repositories:
-
-### Core Backend
-
-https://github.com/node63labs/lariba-cloud
-
-FastAPI backend powering the Lariba Cloud platform.
-
-### API Specification
-
-https://github.com/node63labs/lariba-spec
-
-OpenAPI specification describing the Lariba Cloud API.
-
-### Developer Documentation
-
-https://github.com/node63labs/lariba-docs-site
-
-Public developer documentation and integration guides.
-
----
-
-# License
-
-MIT License © Lariba Cloud
+Copyright © 2026 NODE63 Labs.
