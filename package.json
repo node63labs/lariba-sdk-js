@@ -2,9 +2,24 @@
   "name": "lariba-sdk",
   "version": "1.0.0",
   "description": "Official JavaScript/TypeScript SDK for Lariba Cloud integrations.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck && npm run build",
+    "prepare": "npm run build"
   },
   "keywords": [
     "lariba",
@@ -25,6 +40,10 @@
   "bugs": {
     "url": "https://github.com/node63labs/lariba-sdk-js/issues"
   },
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
   "type": "commonjs",
   "devDependencies": {
     "tsup": "^8.5.1",
