@@ -1,14 +1,30 @@
 {
   "name": "lariba-sdk",
   "version": "1.0.0",
-  "description": "",
+  "description": "Official JavaScript/TypeScript SDK for Lariba Cloud integrations.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "lariba",
+    "lariba-cloud",
+    "sdk",
+    "api",
+    "events",
+    "typescript",
+    "javascript"
+  ],
+  "author": "NODE63 Labs",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/node63labs/lariba-sdk-js.git"
+  },
+  "homepage": "https://github.com/node63labs/lariba-sdk-js#readme",
+  "bugs": {
+    "url": "https://github.com/node63labs/lariba-sdk-js/issues"
+  },
   "type": "commonjs",
   "devDependencies": {
     "tsup": "^8.5.1",
