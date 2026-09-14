@@ -19,7 +19,10 @@
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "typecheck": "tsc --noEmit",
     "test": "npm run typecheck && npm run build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "audit:prod": "npm audit --omit=dev --audit-level=high",
+    "audit:dev": "npm audit --include=dev --audit-level=moderate",
+    "audit:deps": "npm run audit:prod && npm run audit:dev"
   },
   "keywords": [
     "lariba",
